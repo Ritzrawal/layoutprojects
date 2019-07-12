@@ -3,7 +3,6 @@
 const request = require('request');
 var express = require('express'); 
 const cheerio = require('cheerio'); 
-const prompt = require('prompt');
 const app = express();
 const cors = require("cors");
 app.use(cors());
@@ -39,32 +38,33 @@ request(URL, function (err,data, body) {
                {id:6,name:'EUR/JPY',alldata: eurojapan},
             ]  
             console.log(object);
-            // console.log(object); 
-     
-       
-      
-        prompt.start();
-
-        const value=prompt.get(['Coin'], function (err, result) {
-            if (err) { return onErr(err)
-             }
-             object.map((items,index)=>{
-        
-            if(items.name===result.Coin){
-                console.log(items.alldata)
-                res.send(items.alldata)
-            }
+            res.send(object);
           
-             })
+    //    object.map((items,index)=>{
+    //        res.send(items.alldata)
+    //    })
+      
+        // prompt.start();
+
+        // const value=prompt.get(['Coin'], function (err, result) {
+        //     if (err) { return onErr(err)
+        //      }
+        //      object.map((items,index)=>{
+        
+        //     if(items.name===result.Coin){
+        //         console.log(items.alldata)
+        //         res.send(items.alldata)
+        //     }
+          
+        //      })
             
            
-            function onErr(err) {
-                console.log(err);
-                return 1;
-            }
-            // res.json(value);
-            // res.send(value)
-        });
+        //     function onErr(err) {
+        //         console.log(err);
+        //         return 1;
+        //     }
+           
+        // });
   
     }
     
@@ -74,8 +74,8 @@ request(URL, function (err,data, body) {
 //     'last  line'
 // );
 })
-app.listen(8081);
-console.log('Magic happens on port 8081');
+app.listen(8080);
+console.log('Magic happens on port 8080');
 module.exports=app;
 
 

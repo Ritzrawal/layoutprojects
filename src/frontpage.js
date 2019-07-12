@@ -3,14 +3,42 @@ import './frontpage.css';
 import Navigation from './navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button,Progress } from 'reactstrap';
+import PageCurrency from './pagination'
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+
+
 import { faEllipsisV,faCaretDown,faCaretUp} from '@fortawesome/free-solid-svg-icons';
+import { id } from 'postcss-selector-parser';
 export default class FrontPage extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { 
+          person: [],
+          currentPage: 1,
+          todosPerPage: 3
+        };
+    }
+    handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+    componentDidMount() {
+     fetch("http://localhost:8080/scrape") 
+      .then(response =>  response.json())
+      .then(resData => {
+         this.setState({ person: resData.currency }); //this is an asynchronous function
+      })
+    }
+
   render(){
+      
     return(
         <div className="MainComponent" style={{backgroundColor:'#020210',width:'100%',height:'100%'}}>
             <Navigation/>
       
       <div className="FrontPage">
+      
           <div className="LeftSIde">
               <div className="LeftTop">
                   <div>
@@ -60,11 +88,6 @@ export default class FrontPage extends Component{
                           
                           <text style={{fontSize:'1vw'}}>Live</text></Button>
                       </div>
-                      {/* <div>
-                      <Button color="secondary" size="sm">Live</Button>
-                        
-                          
-                      </div> */}
                       </div>
                   </div>
                   <div className="EventBlock">
@@ -79,21 +102,29 @@ export default class FrontPage extends Component{
                   </div>
                   <div className="CurrencyDetain">
                       <div className="EurCurrency">
-                      <div class="DollorName">EUR</div>
-                      <div className="LinkClick">German current assignmaent</div>
+                      <div className="DollorName">EUR</div>
+                      <div className="LinkClick">
+                      <a href="/">German current assignmaent</a>
+                         </div>
                       <div className="HighLow">High</div>
                       <div className="Time">12:30</div>
 
                       </div>
                       <div className="EurCurrency">
-                      <div class="DollorName">EUR</div>
-                      <div className="LinkClick">Trade balance</div>
+                      <div className="DollorName">HKD</div>
+                      <div className="LinkClick">
+                      <a href="/"> Trade balance</a>
+                         
+                          </div>
                       <div className="HighLow">Mid</div>
                       <div className="Time">13:37</div>
                       </div>
                       <div className="EurCurrency">
-                      <div class="DollorName">EUR</div>
-                      <div className="LinkClick">3-month trde Auction</div>
+                      <div className="DollorName">USD</div>
+                      <div className="LinkClick">
+                      <a href="/">3-month trde Auction</a>
+                          
+                          </div>
                       <div className="HighLow">Low</div>
                       <div className="Time">16:54</div>
                       </div>
@@ -117,58 +148,91 @@ export default class FrontPage extends Component{
          <div className="Title" style={{height:'10%'}}>
                  <text className="TextTitle">Signals Feed</text>
              </div>
-             <div className="CurrencyTag">
-                 <div className="EurCurrency">
-                 <div class="SignalCurrency">EUR/USD
-                 <FontAwesomeIcon style={{color:'#CC0000'}}icon={faCaretUp}/>
-                 </div>
-                      <div className="Value">High</div>
-                      <div className="Minute">1M</div>
-
-                 </div>
-                 <div className="EurCurrency">
-                 <div class="SignalCurrency">EUR/USD
-                 <FontAwesomeIcon style={{color:'#00FF00'}}icon={faCaretDown}/>
-                 </div>
-                      <div className="Value">High</div>
-                      <div className="Minute">1M</div>
-                 </div>
-                 <div className="EurCurrency">
-                 <div class="SignalCurrency">EUR/USD
-                 <FontAwesomeIcon style={{color:'#00FF00'}}icon={faCaretDown}/>
-                 </div>
-                      <div className="Value">High</div>
-                      <div className="Minute">1M</div>
-                 </div>
-             </div>
+             <PageCurrency/>
+          {/* {this.state.person.map((items,index)=>{
+               var count = Object.keys(items).length;
+               console.log(count);
+            console.log(index);
+            // console.log(this.state.person[0])
+            // console.log(items.id)
+            console.log(items)
+           
+ return(
+    <div className="CurrencyTag">
+        {items.id===index?(
+           <div className="EurCurrency">
+           <div className="SignalCurrency">{items.id}
+           <FontAwesomeIcon style={{color:'#CC0000'}}icon={faCaretUp}/>
+           </div>
+             <div className="Value">{items.name}</div>
+                <div className="Minute">1M</div>
+       
+           </div>
+        ):(
+            <text>Nothning to check</text>
+        )}
+</div>
+ )
+          })} */}
          </div>
          <div className="RightDown">
              <div className="Title" style={{height:'10%'}}>
                  <text className="TextTitle">Expired Signal</text>
              </div>
-             <div className="CurrencyTag">
+             <PageCurrency/>
+             {/* <div className="Title" style={{height:'10%'}}>
+                 <text className="TextTitle">Signals Feed</text>
+             </div> */}
+          {/* {this.state.person.map((items,index)=>{
+               var count = Object.keys(items).length;
+               console.log(count);
+            console.log(index);
+            // console.log(this.state.person[0])
+            // console.log(items.id)
+            console.log(items)
+           
+ return(
+    <div className="CurrencyTag">
+        {items.id===index?(
+           <div className="EurCurrency">
+           <div className="SignalCurrency">{items.id}
+           <FontAwesomeIcon style={{color:'#CC0000'}}icon={faCaretUp}/>
+           </div>
+             <div className="Value">{items.name}</div>
+                <div className="Minute">1M</div>
+       
+           </div>
+        ):(
+            <text>Nothning to check</text>
+        )}
+</div>
+ )
+          })} */}
+             {/* <div className="CurrencyTag">
+
                  <div className="EurCurrency">
                  <div class="SignalCurrency">EUR/USD
                  <FontAwesomeIcon style={{color:'#CC0000'}}icon={faCaretUp}/>
                  </div>
-                      <div className="Value">High</div>
+                    <div className="Value">EURUSD</div>
                       <div className="Minute">1M</div>
                  </div>
                  <div className="EurCurrency">
-                 <div class="SignalCurrency">EUR/USD
+                 <div class="SignalCurrency">CHF/EUR
                  <FontAwesomeIcon style={{color:'#00FF00'}}icon={faCaretDown}/>
                  </div>
-                      <div className="Value">High</div>
+                  <div className="Value">CHFEUR</div>
                       <div className="Minute">1M</div>
                  </div>
                  <div className="EurCurrency">
-                 <div class="SignalCurrency">EUR/USD
+                 <div class="SignalCurrency">AUD/USD
                  <FontAwesomeIcon style={{color:'#00FF00'}}icon={faCaretDown}/>
                  </div>
-                      <div className="Value">High</div>
+
+                   <div className="Value">AUDUSD</div>
                       <div className="Minute">1M</div>
                  </div>
-             </div>
+             </div> */}
          </div>
 
      </div>

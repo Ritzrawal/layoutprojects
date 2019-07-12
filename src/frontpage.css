@@ -1,6 +1,6 @@
 .FrontPage{
     width:'100%';
-    height:'100%';
+    height:875px;
     display: flex;
  
     
@@ -8,7 +8,6 @@
 .LeftSIde{
     /* background-color:  #212f48; */
     width:42%;
-    height: 700px;
     margin-bottom: 5px;
     margin-left: 15px;
 
@@ -16,14 +15,12 @@
 .Middle{
     background-color:#212f48;
     width:35%;
-    height:700px;
     margin-left: 10px;
     margin-bottom: 5px;
 }
 .RightSide{
     /* background-color:#212f48; */
     width: 20%;
-    height: 700px;
     margin-bottom: 5px;
     margin-left: 10px;
 }
@@ -100,7 +97,7 @@
 }
 .CurrencyTag{
     display: grid;
-    height: 85%;
+     height: 25%; 
     place-items: center;
 }
 .EurCurrency{
